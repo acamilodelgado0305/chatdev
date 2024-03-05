@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-
-const contactSchema = mongoose.Schema({
+//Creacion del Schema (modelo de datos)d e mongoose de un contacto
+const contactSchema = mongoose.Schema({ 
   name: {
     type: String,
     required: true,
@@ -14,5 +14,5 @@ const contactSchema = mongoose.Schema({
     require:false,
   }
 });
-
+//exportamos el modelo de datos creado
 export default mongoose.model("Contact", contactSchema);
