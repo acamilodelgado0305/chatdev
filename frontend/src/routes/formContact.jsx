@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Form } from 'react-router-dom';
 import axios from 'axios';
 
+const URL= import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+
 export default function FormContacts() {
   const navigate = useNavigate();
   const [contact, setContact] = useState({
@@ -21,7 +23,7 @@ export default function FormContacts() {
     const createContact = { ...contact };
 
     try {
-        await axios.post('http://localhost:8080/contact', createContact);
+        await axios.post(`${URL}/contact`, createContact);
         navigate("/")
       setClient({
         name:"",
