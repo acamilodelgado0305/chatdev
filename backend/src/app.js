@@ -17,9 +17,6 @@ const app = express();
 // iniciamos el socket server para comunicación en tiempo real
 const server = http.createServer(app);
 const io = new SocketServer(server, {
-  // cors: {
-  //   origin: "http://localhost:3000",
-  // },
 });
 
 // Middlewares usados

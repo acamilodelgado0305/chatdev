@@ -3,8 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 import axios from "axios";
 import { FiRefreshCcw } from "react-icons/fi";
 
-
-const URL= import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
 
 //usamos class extendida a componente para manejar para manejar estados y componentdidmount de manera directa
 export default class Root extends Component {
@@ -14,11 +13,11 @@ export default class Root extends Component {
       contacts: [],
     };
   }
-//creamos una funcion que llama esos datos para actualizar manualmente su estado 
+  //creamos una funcion que llama esos datos para actualizar manualmente su estado
   componentDidMount() {
     this.fetchContacts();
   }
-//obetenemos los contactos de la API de contactos y los almacenamos en el estado de contacts
+  //obetenemos los contactos de la API de contactos y los almacenamos en el estado de contacts
   async fetchContacts() {
     try {
       const res = await axios.get(`${URL}/contact`);
@@ -35,7 +34,7 @@ export default class Root extends Component {
       <>
         <div id="sidebar">
           <h1>
-            Chat Prueba
+            Contactos
             <button
               type="button"
               className="btn refresh"
