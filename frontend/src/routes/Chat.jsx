@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReactEmoji from 'react-emoji-render';
 
-const URL= import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
-const URT= import.meta.env.VITE_FRONTEND_ULT || "http://localhost:5173/";
+const URL= import.meta.env.VITE_BACKEND_URL || "http://localhost:8080/";
+const URT= import.meta.env.VITE_FRONTEND_ULT 
 
 const socket = io(URT);
 
