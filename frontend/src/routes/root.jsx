@@ -3,7 +3,9 @@ import { Outlet, Link } from "react-router-dom";
 import axios from "axios";
 import { FiRefreshCcw } from "react-icons/fi";
 
+
 const URL= import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
+
 //usamos class extendida a componente para manejar para manejar estados y componentdidmount de manera directa
 export default class Root extends Component {
   constructor(props) {
