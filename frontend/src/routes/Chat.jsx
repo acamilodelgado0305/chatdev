@@ -6,10 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReactEmoji from 'react-emoji-render';
 
-const URL= import.meta.env.VITE_BACKEND_URL || "http://localhost:8080";
-const URT= import.meta.env.VITE_FRONTEND_ULT 
-
-const socket = io(URT);
+const socket = io.connect(import.meta.env.VITE_BACKEND_URL)
 
 export default function Chat() {
   const { _id } = useParams();
@@ -65,7 +62,7 @@ const sendMessage = (event) => {
 useEffect(() => {
  const fetchContact = async () => {
    try {
-     const response = await axios.get(`${URL}/contact/${_id}`); // Realizar la solicitud GET para obtener los datos del contacto
+     const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/contact/${_id}`); // Realizar la solicitud GET para obtener los datos del contacto
      setContact(response.data); // Actualizar el estado con los datos del contacto
    } catch (error) {
      // Manejar el error
