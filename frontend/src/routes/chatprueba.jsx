@@ -16,7 +16,7 @@ export default function Chat() {
 const [messages, setMessages] = useState([]); // Estado para almacenar los mensajes
 const [message, setMessage] = useState(''); // Estado para almacenar el mensaje actual
 const [contact, setContact] = useState({ name: "" }); // Estado para almacenar los datos del contacto
-const [isConnected, setIsConnected] = useState(true); // Estado para rastrear si el socket está conectado
+const [isConnected, setIsConnected] = useState(false); // Estado para rastrear si el socket está conectado
 const [sentMessages, setSentMessages] = useState({}); // Estado para rastrear los mensajes enviados
 
 // Usamos useEffect para realizar el cambio de esos estados creados anterior mente
@@ -61,54 +61,49 @@ const sendMessage = (event) => {
 // Obtener los datos del contacto cuando se carga el componente
 
   return (
-    <div className="chat-window">
-  <header className="chat-header">
-    <h1 className="contact-name">Chat</h1>
-    {isConnected ? (
-      <span className="online-status">Online</span>
-    ) : (
-      <span className="offline-status">Offline</span>
-    )}
-  </header>
-  <main className="chat-body">
-    <ul className="message-list">
-      {messages.map((message, index) => (
-        <li
-          key={index}
-          className={`message-item ${
-            message.from === 'Me' ? 'outgoing-message' : 'incoming-message'
-          }`}
-        >
-          <div className="message-content">
-            {message.from !== 'Me' && (
-              <span className="sender-name">{message.from}</span>
-            )}
-            <p className="message-text">
-              <ReactEmoji>{message.body}</ReactEmoji>
-            </p>
-            <span className="message-timestamp">{message.time}</span>
-            {message.from === 'Me' && sentMessages[message.time] && (
-              <MdDone className="message-status-icon" />
-            )}
-          </div>
-        </li>
-      ))}
-    </ul>
-  </main>
-  <footer className="chat-input">
-    <form className="message-form" onSubmit={sendMessage}>
-      <input
-        type="text"
-        placeholder="Mensaje"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="message-input"
-      />
-      <button type="submit" className="send-button">
-        <IoMdSend className="send-icon" />
-      </button>
-    </form>
-  </footer>
-</div>
+    <div className="chat-container">
+      <header className="chat-header">
+        <h1>{contact.name}</h1>
+        {isConnected ? <span style={{ color: 'green' }}>Online</span> : <span style={{ color: 'red' }}>Offline</span>}
+      </header>
+      <main className="chat-main">
+        <ul className="message-list">
+          {messages.map((message, index) => (
+            <li
+              key={index}
+              className={`message ${message.from === 'Me' ? 'sent' : 'received'}`}
+            >
+              <div className="message-content">
+                {message.from !== 'Me' && (
+                  <span className="message-sender">{message.from}</span>
+                )}
+                <p className="message-body">
+                  <ReactEmoji>{message.body}</ReactEmoji>
+                </p>
+                <span className="message-time">{message.time}</span>
+                {message.from === 'Me' && sentMessages[message.time] && (
+                  <MdDone style={{ marginLeft: '5px', color: 'blue' }} />
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </main>
+      <footer className="chat-footer">
+        <form className="message-form" onSubmit={sendMessage}>
+          <input
+            type="text"
+            placeholder="Type a message..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="message-input"
+          />
+          <button type="submit" className="send-button">
+            <i className="fas fa-paper-plane"></i>
+            <IoMdSend />
+          </button>
+        </form>
+      </footer>
+    </div>
   );
 }

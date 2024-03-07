@@ -5,36 +5,25 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-//importamos estilos
-import "./index.css";
-////------RUTAS------------------//
-//ERROR PAGE
-import ErrorPage from "./error-page";
-//CHAT//
-import Chat from "./routes/Chat";
-//ROOT//
-import Root from "./routes/root";
-//FORMCONTACT//
-import FormContacts from "./routes/formContact";
 
+import "./index.css";
+
+import ErrorPage from "./error-page";
+
+import Chat from "./routes/Chat"
+
+import Login from "./routes/login";
 
 //CREAMOS EL ROUTER para luego pasarle las rutas de cada componenete
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/chat/:_id",
-        element: <Chat />,
-      },
-      {
-        path:"/contact/new",
-        element: <FormContacts/>
-      }
-    ],
+    element: <Login />,
   },
+  {
+    path:"/chat/:name",
+    element:<Chat/>
+  }
 ]);
 
 
