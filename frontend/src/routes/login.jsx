@@ -20,7 +20,7 @@ export default function Login() {
       />
       
       <button className="join-button">
-        <Link to={`/chat/=${encodeURIComponent(name)}`}>Unirse al chat</Link>
+        <Link to={`/chat/${encodeURIComponent(name)}`}>Unirse al chat</Link>
       </button>
     </div>
   );

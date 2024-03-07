@@ -3,8 +3,6 @@ import io from 'socket.io-client';
 import { IoMdSend } from "react-icons/io";
 import { MdDone } from "react-icons/md";
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import ReactEmoji from 'react-emoji-render';
 
 const socket = io.connect(import.meta.env.VITE_BACKEND_URL)
 
@@ -35,10 +33,15 @@ useEffect(() => {
 }, []);
 
 // Función para recibir mensajes
-const receiveMessage = (message) => {
- setMessages(prevMessages => [...prevMessages, message]); // Agregar el mensaje recibido al estado de mensajes
- setSentMessages(prevSentMessages => ({ ...prevSentMessages, [message.time]: true, })); // Marcar el mensaje como recibido
+const receiveMessage = (receivedMessage) => {
+  const messageWithTime = {
+    ...receivedMessage,
+    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  };
+  setMessages(prevMessages => [...prevMessages, messageWithTime]);
+  setSentMessages(prevSentMessages => ({ ...prevSentMessages, [messageWithTime.time]: true }));
 };
+
 
 // Función para enviar mensajes
 const sendMessage = (event) => {
@@ -48,7 +51,7 @@ const sendMessage = (event) => {
  // Crear un nuevo mensaje
  const newMessage = {
    body: message,
-   from: 'Me',
+   from: name,
    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
  };
 
@@ -71,29 +74,29 @@ const sendMessage = (event) => {
     )}
   </header>
   <main className="chat-body">
-    <ul className="message-list">
-      {messages.map((message, index) => (
-        <li
-          key={index}
-          className={`message-item ${
-            message.from === 'Me' ? 'outgoing-message' : 'incoming-message'
-          }`}
-        >
-          <div className="message-content">
-            {message.from !== 'Me' && (
-              <span className="sender-name">{message.from}</span>
-            )}
-            <p className="message-text">
-              <ReactEmoji>{message.body}</ReactEmoji>
-            </p>
-            <span className="message-timestamp">{message.time}</span>
-            {message.from === 'Me' && sentMessages[message.time] && (
-              <MdDone className="message-status-icon" />
-            )}
-          </div>
-        </li>
-      ))}
-    </ul>
+  <ul className="message-list">
+  {messages.map((message, index) => (
+    <li
+      key={index}
+      className={`message-item ${
+        message.from === name ? 'outgoing-message' : 'incoming-message'
+      }`}
+    >
+      <div className="message-content">
+        {message.from !== name && (
+          <span className="sender-name">{message.from}</span>
+        )}
+        <p className="message-text">
+          {message.body}
+        </p>
+        <span className="message-timestamp">{message.time}</span>
+        {message.from === name && sentMessages[message.time] && (
+          <MdDone className="message-status-icon" />
+        )}
+      </div>
+    </li>
+  ))}
+</ul>
   </main>
   <footer className="chat-input">
     <form className="message-form" onSubmit={sendMessage}>
