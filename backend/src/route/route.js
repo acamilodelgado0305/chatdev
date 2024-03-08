@@ -1,7 +1,7 @@
 import Message  from "../model/message.js"
 import express from "express";
 
-
+//creamos el controller al momento de la ruta para optimizar codigo
 const router = express.Router();
 
 router.post("/", async (req, res) => {

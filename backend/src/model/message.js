@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+//creación del modelo de datos del mensaje
 const messageSchema = new mongoose.Schema({
   message: {
     type: String,
