@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-//importanos los elementos enecesarios de react-router-dom para crear rutas de manera optima
 import {
   createBrowserRouter,
   RouterProvider,
@@ -19,10 +18,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+    errorElement:<ErrorPage/>
   },
   {
-    path:"/chat/:name",
-    element:<Chat/>
+    path:"/",
+    element:<Chat/>,
+    errorElement:<ErrorPage/>
   }
 ]);
 

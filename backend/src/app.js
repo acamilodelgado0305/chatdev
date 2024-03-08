@@ -9,6 +9,8 @@ import 'dotenv/config'
 import "./database.js"
 import { resolve, dirname } from "path";
 
+import messageRouter from "./route/route.js";
+
 
 // MIDELWARES
 app.use(cors())
@@ -30,13 +32,22 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  const name = socket.handshake.query.name;
-  console.log(`${name} connected with socket ID ${socket.id}`);
+  console.log(`Usuario actual: ${socket.id}`);
 
-  socket.on("message", (body) => {
-    socket.broadcast.emit("message", { body, from: name });
-  });
-});
+  socket.on("join_room", (data) => {
+      socket.join(data)
+      console.log(`Usuario con id: ${socket.id} se unió a las sala: ${data}`);
+  })
+  socket.on("send_message", (data) => {
+     socket.to(data.room).emit("receive_message",data);
+  })
+
+  socket.on("disconnect", () => {
+      console.log("Usuario desconectado",socket.id)
+  })
+})
+
+app.use('/message', messageRouter);
 
 
 

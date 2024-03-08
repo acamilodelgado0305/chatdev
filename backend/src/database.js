@@ -1,4 +1,3 @@
-//conexión a la base de datos mongo db
 import mongoose from "mongoose"
 import "dotenv/config"
 
